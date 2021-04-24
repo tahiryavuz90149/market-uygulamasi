@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart'; // kayan noktalı sayı için kütüphane
 import 'package:flutter/services.dart'; // textfield da rakam kullanmak için kütüphane
 import 'package:vizeodevi/hakkında.dart';
-import 'package:vizeodevi/icerik.dart';
-import 'package:vizeodevi/kırtasiyeUrunleri.dart';
-import 'package:vizeodevi/beyazEsya.dart';
-import 'package:vizeodevi/icecekler.dart';
-import 'package:vizeodevi/giyim.dart';
-import 'package:vizeodevi/elektronik.dart';
-import 'package:vizeodevi/hırdavat.dart';
-import 'package:vizeodevi/oyuncak.dart';
+import 'package:vizeodevi/Icerik/icerik.dart';
+import 'package:vizeodevi/Kategoriler/kırtasiyeUrunleri.dart';
+import 'package:vizeodevi/Kategoriler/beyazEsya.dart';
+import 'package:vizeodevi/Kategoriler/icecekler.dart';
+import 'package:vizeodevi/Kategoriler/giyim.dart';
+import 'package:vizeodevi/Kategoriler/elektronik.dart';
+import 'package:vizeodevi/Kategoriler/hırdavat.dart';
+import 'package:vizeodevi/Kategoriler/oyuncak.dart';
 import 'package:english_words/english_words.dart'; // sonsuz ve rastgele liste oluşturmak için kütüphane
 
 void main() {

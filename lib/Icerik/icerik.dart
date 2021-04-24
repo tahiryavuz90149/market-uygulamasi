@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:vizeodevi/beyazEsya.dart';
-import 'package:vizeodevi/elektronik.dart';
-import 'package:vizeodevi/giyim.dart';
-import 'package:vizeodevi/h%C4%B1rdavat.dart';
-import 'package:vizeodevi/icecekler.dart';
-import 'package:vizeodevi/k%C4%B1rtasiyeUrunleri.dart';
-import 'package:vizeodevi/oyuncak.dart';
+import 'package:vizeodevi/Kategoriler/beyazEsya.dart';
+import 'package:vizeodevi/Kategoriler/elektronik.dart';
+import 'package:vizeodevi/Kategoriler/giyim.dart';
+import 'package:vizeodevi/Kategoriler/h%C4%B1rdavat.dart';
+import 'package:vizeodevi/Kategoriler/icecekler.dart';
+import 'package:vizeodevi/Kategoriler/k%C4%B1rtasiyeUrunleri.dart';
+import 'package:vizeodevi/Kategoriler/oyuncak.dart';
 
 class icerik extends StatefulWidget {
   @override
