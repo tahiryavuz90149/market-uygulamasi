@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
 class hirdavat extends StatefulWidget {
   @override
@@ -7,57 +6,208 @@ class hirdavat extends StatefulWidget {
 }
 
 class _hirdavatState extends State<hirdavat> {
+  String adi = '';
+  int YapistiriciNo = 1;
+  int VidaveDubelSetiNo = 1;
+  int BantNo = 1;
+
+  void _YapistiriciNoDegistir() {
+    setState(() {
+      if (YapistiriciNo < 4) {
+        YapistiriciNo++;
+      }
+      if (YapistiriciNo == 4) {
+        YapistiriciNo = 1;
+      }
+    });
+  }
+
+  void _VidaveDubelSetiNoDegistir() {
+    setState(() {
+      if (VidaveDubelSetiNo < 4) {
+        VidaveDubelSetiNo++;
+      }
+      if (VidaveDubelSetiNo == 4) {
+        VidaveDubelSetiNo = 1;
+      }
+    });
+  }
+
+  void _BantNoDegistir() {
+    setState(() {
+      if (BantNo < 4) {
+        BantNo++;
+      }
+      if (BantNo == 4) {
+        BantNo = 1;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text('Hırdavat'),
       ),
       body: Center(
-        child: RandomWords(),
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      width: 220,
+                      child: Image.asset(
+                          'assets/images/Yapistirici_$YapistiriciNo.png'),
+                    ),
+                    onTap: () {
+                      _YapistiriciNoDegistir();
+                    },
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text("Yapıştırıcı"),
+                        Text(
+                          " 18,99 TL",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                adi = "Yapıştırıcı";
+                                print("$adi isimli ürün sepete eklendi.");
+                              },
+                              child: Text('Sepete Ekle'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              //aradaki turuncu çizgiyi oluşturuyor
+              color: Colors.blue,
+              height: 0.1, // divider yüksekliği
+              thickness: 5, // divider ın kalınlığı
+              indent: 5, // divider ın kenarlardaki boşluğu
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 220,
+                        child: Image.asset(
+                            'assets/images/VidaveDubelSeti_$VidaveDubelSetiNo.png'),
+                      ),
+                    ),
+                    onTap: () {
+                      _VidaveDubelSetiNoDegistir();
+                    },
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text("Vida ve Dübel Seti "),
+                        Text(
+                          " 39,99 TL",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                adi = "Vida ve Dübel Seti";
+                                print("$adi isimli ürün sepete eklendi.");
+                              },
+                              child: Text('Sepete Ekle'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              //aradaki turuncu çizgiyi oluşturuyor
+              color: Colors.blue,
+              height: 0.1, // divider yüksekliği
+              thickness: 5, // divider ın kalınlığı
+              indent: 5, // divider ın kenarlardaki boşluğu
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      width: 220,
+                      child: Image.asset('assets/images/Bant_$BantNo.png'),
+                    ),
+                    onTap: () {
+                      _BantNoDegistir();
+                    },
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text("Bant"),
+                        Text(
+                          " 14,99 TL",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                adi = "Bant";
+                                print("$adi isimli ürün sepete eklendi.");
+                              },
+                              child: Text('Sepete Ekle'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    );
-  }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  _RandomWordsState createState() => _RandomWordsState();
-}
-
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _biggerFont = TextStyle(fontSize: 18.0);
-
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemBuilder: /*1*/ (context, i) {
-          if (i.isOdd) return Divider(); /*2*/
-
-          final index = i ~/ 2; /*3*/
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10)); /*4*/
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildSuggestions(),
     );
   }
 }

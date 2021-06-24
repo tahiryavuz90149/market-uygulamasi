@@ -1,31 +1,50 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart'; // kayan noktalı sayı için kütüphane
 import 'package:flutter/services.dart'; // textfield da rakam kullanmak için kütüphane
+import 'package:provider/provider.dart';
+import 'package:vizeodevi/auth/auth_methods.dart';
 import 'package:vizeodevi/hakkında.dart';
 import 'package:vizeodevi/Icerik/icerik.dart';
-import 'package:vizeodevi/Kategoriler/kırtasiyeUrunleri.dart';
-import 'package:vizeodevi/Kategoriler/beyazEsya.dart';
-import 'package:vizeodevi/Kategoriler/icecekler.dart';
-import 'package:vizeodevi/Kategoriler/giyim.dart';
-import 'package:vizeodevi/Kategoriler/elektronik.dart';
-import 'package:vizeodevi/Kategoriler/hırdavat.dart';
-import 'package:vizeodevi/Kategoriler/oyuncak.dart';
-import 'package:english_words/english_words.dart'; // sonsuz ve rastgele liste oluşturmak için kütüphane
+import 'package:vizeodevi/Dosya_İslemi/file_utils.dart';
+import 'package:vizeodevi/services/FirestoreKartBilgileriService.dart';
+import 'package:vizeodevi/users/uyeler.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:vizeodevi/provider/kartbilgileri_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // appbar daki debug yazısını kaldırır
-      title: 'Yavuz AVM',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider<FlutterFireAuthService>(
+          create: (_) => FlutterFireAuthService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<FlutterFireAuthService>().authStateChanges,
+          initialData: null,
+        ),
+        ChangeNotifierProvider(create: (context) => kartbilgileri_provider()),
+        StreamProvider(
+            create: (context) =>
+                FirestoreKartBilgileriService().getKartBilgileri()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner:
+            false, // appbar daki debug yazısını kaldırır
+        title: 'Yavuz AVM',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -43,6 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String adsoyad = '';
   String adres = '';
   String telefon = '';
+  String fileContents = "Veri yok";
+  final myController = TextEditingController();
 
   void _adSoyadKaydet(String text) {
     setState(() {
@@ -72,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       ilerle = true;
     }
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -109,13 +131,13 @@ class _MyHomePageState extends State<MyHomePage> {
               // Expended widget i resmin kalan alana uyarlanmasını sağlıyor
               child: CircleAvatar(
                 //images dosyasını yuvarlak içinde veriyor
-                radius: 120.0, // resmin boyutunu ayarlıyor
+                radius: 140.0, // resmin boyutunu ayarlıyor
                 backgroundImage: AssetImage('assets/images/Yavuz_Logo.jpg'),
               ),
             ),
             SizedBox(
               // resim ile yazı arasına boşluk koymak için kullanılan widget
-              height: 20.0,
+              height: 10.0,
             ),
             Text(
               'Adınızı ve Soyadınızı Giriniz:',
@@ -124,6 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(
                   5.0), // her taraftan 5 piksel mesafe verdi.
               child: TextFormField(
+                controller: myController,
                 decoration: const InputDecoration(
                   border:
                       OutlineInputBorder(), //text form field witget ini çerçeve içine alıyor
@@ -203,6 +226,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
+                          MaterialPageRoute(builder: (context) => uyeler()),
+                        );
+                      },
+                      child: Text('Üye Ol'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
                           MaterialPageRoute(builder: (context) => Hakkinda()),
                         );
                       },
@@ -226,6 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             adsoyad) // ad soyad değişkenini içerik sayfasına yolluyoruz
                                     ),
                               ));
+                        FileUtils.saveToFile(myController.text);
                       },
                       child: Text('İleri'),
                     ),

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:vizeodevi/Kategoriler/beyazEsya.dart';
 import 'package:vizeodevi/Kategoriler/elektronik.dart';
 import 'package:vizeodevi/Kategoriler/giyim.dart';
-import 'package:vizeodevi/Kategoriler/h%C4%B1rdavat.dart';
+import 'package:vizeodevi/Kategoriler/hırdavat.dart';
 import 'package:vizeodevi/Kategoriler/icecekler.dart';
-import 'package:vizeodevi/Kategoriler/k%C4%B1rtasiyeUrunleri.dart';
+import 'package:vizeodevi/Kategoriler/kırtasiyeUrunleri.dart';
 import 'package:vizeodevi/Kategoriler/oyuncak.dart';
 
 class icerik extends StatefulWidget {
@@ -19,10 +19,12 @@ class _icerikState extends State<icerik> {
         .settings
         .arguments; //main sayfasında girilen ismi içerik sayfasna alıyor.
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-            'Sayın ' + adSoyad + ' Şuan içerik sayfasını görüntülemektesiniz'),
+          'Sayın ' + adSoyad + ' İçerik sayfasındasınız',
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Center(
         child: Padding(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
 class oyuncak extends StatefulWidget {
   @override
@@ -7,57 +6,207 @@ class oyuncak extends StatefulWidget {
 }
 
 class _oyuncakState extends State<oyuncak> {
+  String adi = '';
+  int ManyetikAlfabeSetiNo = 1;
+  int BebekNo = 1;
+  int ArabaNo = 1;
+
+  void _ManyetikAlfabeSetiNoDegistir() {
+    setState(() {
+      if (ManyetikAlfabeSetiNo < 3) {
+        ManyetikAlfabeSetiNo++;
+      }
+      if (ManyetikAlfabeSetiNo == 3) {
+        ManyetikAlfabeSetiNo = 1;
+      }
+    });
+  }
+
+  void _BebekNoDegistir() {
+    setState(() {
+      if (BebekNo < 6) {
+        BebekNo++;
+      }
+      if (BebekNo == 6) {
+        BebekNo = 1;
+      }
+    });
+  }
+
+  void _ArabaNoDegistir() {
+    setState(() {
+      if (ArabaNo < 5) {
+        ArabaNo++;
+      }
+      if (ArabaNo == 5) {
+        ArabaNo = 1;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
-        title: Text('Oyuncaklar'),
+        title: Text('Oyuncak'),
       ),
       body: Center(
-        child: RandomWords(),
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      width: 220,
+                      child: Image.asset(
+                          'assets/images/ManyetikAlfabeSeti_$ManyetikAlfabeSetiNo.png'),
+                    ),
+                    onTap: () {
+                      _ManyetikAlfabeSetiNoDegistir();
+                    },
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text("Manyetik Alfabe Seti"),
+                        Text(
+                          " 26,99 TL",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                adi = "Manyetik Alfabe Seti";
+                                print("$adi isimli ürün sepete eklendi.");
+                              },
+                              child: Text('Sepete Ekle'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              //aradaki turuncu çizgiyi oluşturuyor
+              color: Colors.yellow,
+              height: 0.1, // divider yüksekliği
+              thickness: 5, // divider ın kalınlığı
+              indent: 5, // divider ın kenarlardaki boşluğu
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 220,
+                        child: Image.asset('assets/images/Bebek_$BebekNo.png'),
+                      ),
+                    ),
+                    onTap: () {
+                      _BebekNoDegistir();
+                    },
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text("Bebek "),
+                        Text(
+                          " 139,99 TL",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                adi = "Bebek";
+                                print("$adi isimli ürün sepete eklendi.");
+                              },
+                              child: Text('Sepete Ekle'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              //aradaki turuncu çizgiyi oluşturuyor
+              color: Colors.yellow,
+              height: 0.1, // divider yüksekliği
+              thickness: 5, // divider ın kalınlığı
+              indent: 5, // divider ın kenarlardaki boşluğu
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      width: 220,
+                      child: Image.asset('assets/images/Araba_$ArabaNo.png'),
+                    ),
+                    onTap: () {
+                      _ArabaNoDegistir();
+                    },
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Text("Araba"),
+                        Text(
+                          " 89,99 TL",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                adi = "Araba";
+                                print("$adi isimli ürün sepete eklendi.");
+                              },
+                              child: Text('Sepete Ekle'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    );
-  }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  _RandomWordsState createState() => _RandomWordsState();
-}
-
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _biggerFont = TextStyle(fontSize: 18.0);
-
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemBuilder: /*1*/ (context, i) {
-          if (i.isOdd) return Divider(); /*2*/
-
-          final index = i ~/ 2; /*3*/
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10)); /*4*/
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildSuggestions(),
     );
   }
 }

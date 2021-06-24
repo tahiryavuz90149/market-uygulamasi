@@ -19,7 +19,7 @@ class _HakkindaState extends State<Hakkinda> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                  'Bu uygulama Dr. Öğretim Üyesi Ahmet Cevahir ÇINAR tarafından yürütülen 3301456 kodlu MOBİL PROGRAMLAMA dersi kapsamında 193301047 numaralı Öğrenci Tahir Yavuz tarafından 30 Nisan 2021 günü yapılmıştır.'),
+                  'Bu uygulama Dr. Öğretim Üyesi Ahmet Cevahir ÇINAR tarafından yürütülen 3301456 kodlu MOBİL PROGRAMLAMA dersi kapsamında 193301047 numaralı Öğrenci Tahir Yavuz tarafından 25 Haziran 2021 günü yapılmıştır.'),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
